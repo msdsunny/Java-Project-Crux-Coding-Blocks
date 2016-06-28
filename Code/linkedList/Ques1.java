@@ -7,7 +7,9 @@ public class Ques1 {
 		LinkedList<Integer> list = new LinkedList<>();
 		list.addLast(1);
 		list.addLast(2);
+//		list.addLast(3);
 		list.addLast(2);
+//		list.addLast(1);
 		list.addFirst(3);
 		list.addFirst(4);
 		list.addFirst(5);
@@ -23,7 +25,14 @@ public class Ques1 {
 //		list.reverseIterativeSwap();
 //		list.display();
 //		list.find(3, 4);
-		list.bubbleSort(list);
+//		list.bubbleSort(list);
+//		list.selectionSort(list);
+//		list.insertionSort(list);
+//		System.out.println(list.isPalindrome(list));
+//		list.arrangeOddThenEven(list);
+//		list.printReverse(list);
+//		list.appendLastN(list, 3);
+		list.kReverse(list, 3);
 		list.display();
 	}
 }

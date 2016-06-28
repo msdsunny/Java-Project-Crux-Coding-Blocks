@@ -153,23 +153,6 @@ public class LinkedList<T extends Comparable<T>> {
 	public void display() {
 		System.out.println(this);
 	}
-	public void bubbleSort(LinkedList<Integer> temp){
-		int j = 0;
-		while (temp.getElementAt(j) != temp.getLast()){
-			int i = 0;
-			while (temp.getElementAt(i) != temp.getLast()){
-				if (temp.getElementAt(i) > temp.getElementAt(i + 1)){
-					LinkedList<Integer>.Node one = temp.getNodeAt(i);
-					LinkedList<Integer>.Node two = temp.getNodeAt(i + 1);
-					int main = one.data;
-					one.data = two.data;
-					two.data = main;
-				}
-				i++;
-			}
-			j++;
-		}
-	}
 	public void swapTwoElement(int one,int two){
 		T tempOne = getElementAt(one);
 		T tempTwo = getElementAt(two);
@@ -198,7 +181,6 @@ public class LinkedList<T extends Comparable<T>> {
 	public void mergeSort(){
 		LinkedList<T> sorted = this.mergeSortHelper();
 //		this = sorted;
-		
 		this.head = sorted.head;
 		this.tail = sorted.tail;
 		this.size = sorted.size;
@@ -344,8 +326,7 @@ public class LinkedList<T extends Comparable<T>> {
 		System.out.println(getElementAt(slow));
 	}
 	// reverse iterative  with swap first and last
-	// reverse recursive with swap first and lastp
-	
+	// reverse recursive with swap first and last
 	// reverse iterative  with pointer 1>2>3 to 1<2<3
 	//reverse recursive with pointer 1>2>3 to 1<2<3
 	public void reverseIterativeSwap (){
@@ -409,7 +390,7 @@ public class LinkedList<T extends Comparable<T>> {
 		}
 	}
 	// not working try better for next two function
-	public void reverseIterativePointer (Node temp,int low,int tellme){//tellme 0
+	public void reverseIterativePointer (Node temp,int low,int tellme){//tell me 0
 		int size = size();
 		if (tellme <size/2){
 			T data = temp.data;
@@ -427,5 +408,188 @@ public class LinkedList<T extends Comparable<T>> {
 	}
 	public void reverseRecursivePointer(){
 		
+	}
+	public void bubbleSort(LinkedList<Integer> temp){
+		int j = 0;
+		while (temp.getElementAt(j) != temp.getLast()){
+			int i = 0;
+			while (temp.getElementAt(i) != temp.getLast()){
+				if (temp.getElementAt(i) > temp.getElementAt(i + 1)){
+					LinkedList<Integer>.Node one = temp.getNodeAt(i);
+					LinkedList<Integer>.Node two = temp.getNodeAt(i + 1);
+					int main = one.data;
+					one.data = two.data;
+					two.data = main;
+				}
+				i++;
+			}
+			j++;
+		}
+	}
+	public void bubbleSort(){
+		int counter = 1;
+		while(counter <= this.size - 1){
+			Node temp = this.head;
+			for(int i = 0; i < this.size() - counter; i++){
+				if(temp.compareTo(temp.next) > 0){
+					T tData = temp.data;
+					temp.data = temp.next.data;
+					temp.next.data = tData;
+				}
+				temp = temp.next;
+			}
+			counter = counter + 1;
+		}
+	}
+	public void selectionSort (LinkedList<Integer> temp){
+//		temp.addLast(0);
+//		temp.addLast(0); // using during previous bubble sort also 
+		int j = 0;
+		Node test = this.head;
+		while (test != null){
+			Node next = test.next;
+			int i = j + 1;
+			while (next != null){
+				if (temp.getElementAt(j) > temp.getElementAt(i)){
+					LinkedList<Integer>.Node one = temp.getNodeAt(i);
+					LinkedList<Integer>.Node two = temp.getNodeAt(j);
+					int main = one.data;
+					one.data = two.data;
+					two.data = main;
+				}
+				next = next.next;
+				i++;
+			}
+			test = test.next;
+			j++;
+		}
+	}
+	public void insertionSort (LinkedList<Integer> temp){
+		int i = 1;
+		Node first = head.next;
+		while (first != null){
+			int j = i;
+			Node second = first;
+			while (second != head){
+				if (temp.getElementAt(j - 1) > temp.getElementAt(j)){
+					LinkedList<Integer>.Node one = temp.getNodeAt(j - 1);
+					LinkedList<Integer>.Node two = temp.getNodeAt(j);
+					int main = one.data;
+					one.data = two.data;
+					two.data = main;
+				}
+				Node important = head; // very important node
+				while (important.next != second){
+					important = important.next;
+				}
+				second = important;// previous
+				j--;
+			}
+			first = first.next;
+			i++;
+		}
+	}
+	public boolean isPalindrome (LinkedList<Integer> temp){
+		int i = 0; // add one more else if statement for 1 2 3 1 = false
+		int size = size() - 1;
+		Node first = head.next;
+		while (first != null && first.next != null){
+			LinkedList<Integer>.Node one = temp.getNodeAt(i);
+			LinkedList<Integer>.Node two = temp.getNodeAt(size - i);
+			if (one.data != two.data){
+				return false;
+			}
+			first = first.next.next;
+			i++;
+		}
+		return true;
+	}
+	public void arrangeOddThenEven (LinkedList<Integer> temp){
+		LinkedList<Integer> first = new LinkedList<>();
+		LinkedList<Integer> second = new LinkedList<>();
+		for (int i = 0;i < size();i++){
+			int tap = temp.getElementAt(i);
+			if (tap % 2 == 1){
+				first.addLast(tap);
+			}else{
+				second.addLast(tap);
+			}
+		}
+//		System.out.println(first);
+//		System.out.println(second);
+		LinkedList<Integer> origin = new LinkedList<>();
+		int j = 0;
+		Node forj = head.next;
+		while(forj != null){
+			int a = first.getElementAt(j);
+//			System.out.println(a);
+			origin.addLast(a);
+			forj = forj.next;
+			j++;
+		}
+		int k = 0;
+		Node fork = head.next;
+		while (fork != null){
+			int b = second.getElementAt(k);
+			origin.addLast(b);
+			forj = forj.next;
+			k++;
+		}
+		temp = origin;
+	}
+	public void printReverse (LinkedList<Integer> temp){
+		for (int i = size() - 1;i >= 0;i--){
+			Node a = (LinkedList<T>.Node) temp.getNodeAt(i);
+			System.out.print(a.data + " ,");
+		}
+	}
+	public void appendLastN (LinkedList<Integer> temp,int n){
+		// r 1→ 2→ 3 → 4 → 5 → 6→ null and n = 2 return 5→ 6→ 1→ 2→ 3 → 4 → null 
+		int upto = size() - n;
+		LinkedList<Integer> till = new LinkedList<>();
+		int k = 0;
+		for (int i = 0;i < upto;i++){
+			till.addLast(temp.getElementAt(k));
+			k++;
+		}
+		System.out.println(till);
+		LinkedList<Integer> now = new LinkedList<>();
+		for (int i = 0;i < n;i++){
+			now.addLast(temp.getElementAt(k));
+			k++;
+		}
+		System.out.println(now);
+		temp = null;
+		temp = now;
+		System.out.println(temp);
+		for (int i = 0;i < upto;i++){
+			temp.addLast(till.getElementAt(i));
+		}
+		System.out.println(temp);
+	}
+	public void kReverse (LinkedList<Integer> temp,int n){
+		// 3 →​ 4 →​ 5 →​ 2 →​ 6 →​ 1 →​ 9 for k reverse(3) becomes 5​ → 4→​ 3→​ 1→​ 6→​ 2→​ 9 →​ 1
+		int upto = size() - n;
+		LinkedList<Integer> till = new LinkedList<>();
+		int k = 0;
+		for (int i = 0;i < upto;i++){
+			till.addLast(temp.getElementAt(k));
+			k++;
+		}
+		System.out.println(till);
+		LinkedList<Integer> now = new LinkedList<>();
+		for (int i = 0;i < n;i++){
+			now.addLast(temp.getElementAt(k));
+			k++;
+		}
+		System.out.println(now);
+		now.reverseIterativeSwap();
+		temp = null;
+		temp = now;
+		System.out.println(temp);
+		for (int i = 0;i < upto;i++){
+			temp.addLast(till.getElementAt(i));
+		}
+		System.out.println(temp);
 	}
 }
