@@ -22,6 +22,7 @@ public class AllArray {
 		//output (ar);
 		//binary (ar,x);
 		merge(ar,br);
+		System.out.println("kbdkjabdk");
 	}
 	public static void merge (int[] arr, int[] brr){
 		int i = 0,j = 0,z = 0;
