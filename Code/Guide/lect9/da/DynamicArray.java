@@ -32,7 +32,11 @@ public class DynamicArray {
 	}
 	
 	// TO BE DONE.
-	public int removeAt(int idx){
+	public int removeAt(int idx) throws Exception{
+		if(idx < 0 || idx > this.size){
+			throw new Exception("invalid argument");
+		}
+		
 		return -1;
 	}
 	

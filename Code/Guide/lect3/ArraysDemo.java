@@ -82,17 +82,17 @@ public class ArraysDemo {
 	}
 
 	public static void main(String[] args) {
-		int[] arr = new int[10];
-		arr[9] = 45;
-		System.out.println(arr[9]);
-
-		arr = TakeInput();
-		printArray(arr);
-		
-		bubbleSort(arr);
-		
-		System.out.println("Sorted: ");
-		printArray(arr);
+//		int[] arr = new int[10];
+//		arr[9] = 45;
+//		System.out.println(arr[9]);
+//
+//		arr = TakeInput();
+//		printArray(arr);
+//		
+//		bubbleSort(arr);
+//		
+//		System.out.println("Sorted: ");
+//		printArray(arr);
 
 		// Doesn't work well
 //		System.out.println(arr);
@@ -109,6 +109,22 @@ public class ArraysDemo {
 //		System.out.println(arr[0] + ", " + arr[arr.length - 1]);
 //		swapArrayItems(arr, 0, arr.length - 1);
 //		System.out.println(arr[0] + ", " + arr[arr.length - 1]);
+		
+		
+		int[] arr = TakeInput();
+		
+		Scanner scn = new Scanner(System.in);
+				
+		System.out.println("Please enter m: ");
+		int m = scn.nextInt();
+		
+		System.out.println("Please enter i: ");
+		int i = scn.nextInt();
+		
+		System.out.println("Please enter j: ");
+		int j = scn.nextInt();
+		
+		System.out.println(sumIncrementalArray(arr, m, i, j));
 	}
 
 	public static void swap(int xx, int yy) {
@@ -129,5 +145,28 @@ public class ArraysDemo {
 		arr[si] = temp;
 
 //		System.out.println(arr[fi] + ", " + arr[si]);
+	}
+
+	public static int sumIncrementalArray(int[] arr, int m, int i, int j){
+		int retVal = 0;
+		
+		for(int k = i; k <= j; k++){
+			retVal += termAt(arr, m, k);
+		}
+		
+		return retVal;
+	}
+	
+	public static int termAt(int[] arr, int m, int i){
+		if(m == 0){
+			return arr[i];
+		}
+		
+		if(i % 2 == 0){
+			return termAt(arr, m - 1, i / 2);
+		}
+		else {
+			return termAt(arr, m - 1, (i - 1) / 2) + termAt(arr, m - 1, (i + 1)/ 2);
+		}
 	}
 }

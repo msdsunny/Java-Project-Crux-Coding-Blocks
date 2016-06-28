@@ -15,15 +15,21 @@ public class Sorts {
 		// arr = mergeSort(arr, 0, arr.length - 1);
 		// ArraysDemo.printArray(arr);
 
-//		String[] ssEs = subsequence("abcd");
-//		for (String val : ssEs) {
-//			System.out.println(val);
-//		}
-		
-		System.out.println(keypad("29"));
-		
-		System.out.println(changePi("api"));
-		System.out.println(insertAsterik("hello"));
+		// String[] ssEs = subsequence("abcd");
+		// for (String val : ssEs) {
+		// System.out.println(val);
+		// }
+
+		// System.out.println(keypad("29"));
+		//
+		// System.out.println(changePi("api"));
+		// System.out.println(insertAsterik("hello"));
+		//
+		// System.out.println(permutations("abca"));
+
+		// printSS("abcd", "");
+//		printPermutaions("abca", "");
+		printKeypad("23", "");
 	}
 
 	public static void bubbleSort(int[] arr) {
@@ -91,28 +97,28 @@ public class Sorts {
 	}
 
 	public static ArrayList<String> keypad(String str) {
-		if(str.length() == 1){
+		if (str.length() == 1) {
 			String currentCharCode = kpCode(str.charAt(0));
-			
+
 			ArrayList<String> current = new ArrayList<>();
-			
-			for(int i = 0; i < currentCharCode.length(); i++){
+
+			for (int i = 0; i < currentCharCode.length(); i++) {
 				current.add(currentCharCode.substring(i, i + 1));
 			}
-			
+
 			return current;
 		}
-		
+
 		ArrayList<String> smaller = keypad(str.substring(1));
 		String currentCharCode = kpCode(str.charAt(0));
-		
+
 		ArrayList<String> current = new ArrayList<>();
-		for(int i = 0; i < currentCharCode.length(); i++){
-			for(int j = 0; j < smaller.size(); j++){
+		for (int i = 0; i < currentCharCode.length(); i++) {
+			for (int j = 0; j < smaller.size(); j++) {
 				current.add(currentCharCode.charAt(i) + smaller.get(j));
 			}
 		}
-		
+
 		return current;
 	}
 
@@ -154,32 +160,94 @@ public class Sorts {
 		return retVal;
 	}
 
-	public static String changePi(String str){
-		if(str.length() < 2){
+	public static String changePi(String str) {
+		if (str.length() < 2) {
 			return str;
 		}
-		
-		if(str.charAt(0) == 'p' && str.charAt(1) == 'i'){
+
+		if (str.charAt(0) == 'p' && str.charAt(1) == 'i') {
 			return "3.14" + changePi(str.substring(2));
-		}
-		else if(str.charAt(1) == 'p'){
+		} else if (str.charAt(1) == 'p') {
 			return str.charAt(0) + changePi(str.substring(1));
-		}
-		else{
+		} else {
 			return str.substring(0, 2) + changePi(str.substring(2));
 		}
 	}
-	
-	public static String insertAsterik(String str){
-		if(str.length() == 1){
+
+	public static String insertAsterik(String str) {
+		if (str.length() == 1) {
 			return str;
 		}
-		
-		if(str.charAt(0) == str.charAt(1)){
+
+		if (str.charAt(0) == str.charAt(1)) {
 			return str.charAt(0) + "*" + insertAsterik(str.substring(1));
-		}
-		else{
+		} else {
 			return str.charAt(0) + insertAsterik(str.substring(1));
+		}
+	}
+
+	public static ArrayList<String> permutations(String str) {
+		if (str.length() == 0) {
+			ArrayList<String> current = new ArrayList<>();
+
+			current.add("");
+
+			return current;
+		}
+
+		boolean[] dupCheck = new boolean[256];
+		ArrayList<String> current = new ArrayList<>();
+
+		for (int i = 0; i < str.length(); i++) {
+			char currentChar = str.charAt(i);
+			if (!dupCheck[currentChar]) {
+				ArrayList<String> smaller = permutations(str.substring(0, i) + str.substring(i + 1));
+
+				for (int j = 0; j < smaller.size(); j++) {
+					current.add(currentChar + smaller.get(j));
+				}
+
+				dupCheck[currentChar] = true;
+			}
+		}
+
+		return current;
+	}
+
+	public static void printSS(String str, String outputSoFar) {
+		if (str.length() == 0) {
+			System.out.println(outputSoFar);
+			return;
+		}
+
+		printSS(str.substring(1), outputSoFar);
+		printSS(str.substring(1), outputSoFar + str.charAt(0));
+	}
+
+	public static void printPermutaions(String str, String outputSoFar) {
+		if (str.length() == 0) {
+			System.out.println(outputSoFar);
+			return;
+		}
+
+		boolean[] dupCheck = new boolean[256];
+		for (int i = 0; i < str.length(); i++) {
+			if (!dupCheck[str.charAt(i)]) {
+				printPermutaions(str.substring(0, i) + str.substring(i + 1), outputSoFar + str.charAt(i));
+				dupCheck[str.charAt(i)] = true;
+			}
+		}
+	}
+	
+	public static void printKeypad(String str, String outputSoFar){
+		if(str.length() == 0){
+			System.out.println(outputSoFar);
+			return;
+		}
+		
+		String charCode = kpCode(str.charAt(0));
+		for(int i = 0; i < charCode.length(); i++){
+			printKeypad(str.substring(1), outputSoFar + charCode.charAt(i));
 		}
 	}
 }

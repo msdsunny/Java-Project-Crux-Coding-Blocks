@@ -125,4 +125,20 @@ public class StringsDemo {
 		System.out.println("Chars: " + chars);
 	}
 
+	public static char maxFrequency(String str){
+		
+		int[] arr = new int[256];
+		for(int i = 0; i < str.length(); i++){
+			arr[str.charAt(i)]++;
+		}
+		
+		int maxIndex = 0;
+		for(int i = 0; i < arr.length; i++){
+			if(arr[i] > arr[maxIndex]){
+				maxIndex = i;
+			}
+		}
+		
+		return (char)maxIndex;
+	}
 }
